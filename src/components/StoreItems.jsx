@@ -1,23 +1,17 @@
-import React from "react";
-import { useState,useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getProducts } from "../services/service";
-export default function StoreItems()
-{
-    const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
+
+export default function StoreItems() {
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     getProducts()
       .then(data => {
         setProducts(data);
-        console.log("Products from API:", data); 
+        console.log("Products (cached or from API):", data);
       })
-      .catch(err => {
-        console.error(err);
-        setError("Failed to load products");
-      });
+      .catch(err => console.error(err));
   }, []);
 
-  return null;
+  return null; 
 }
-  
